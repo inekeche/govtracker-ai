@@ -79,7 +79,7 @@ export default function AdminPortalPage() {
                   <p className="text-xs text-slate-500 py-6 text-center">No community issues reported yet.</p>
                 ) : (
                   reports.map((item, idx) => (
-                    <div key={idx} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
+                    <div key={item._id || idx} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
                       <div className="flex justify-between items-center text-xs">
                         <span className="text-amber-400 font-semibold">{item.sector || 'Infrastructure'}</span>
                         <span className="text-slate-500">{item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'Recent'}</span>
@@ -108,7 +108,7 @@ export default function AdminPortalPage() {
                   <p className="text-xs text-slate-500 py-6 text-center">No service ratings submitted yet.</p>
                 ) : (
                   services.map((item, idx) => (
-                    <div key={idx} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
+                    <div key={item._id || idx} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
                       <div className="flex justify-between items-center text-xs">
                         <span className="text-emerald-400 font-semibold">{item.serviceName || 'Public Service'}</span>
                         <span className="text-amber-400 font-semibold">★ {item.rating || '4'} / 5</span>
@@ -136,7 +136,7 @@ export default function AdminPortalPage() {
                   <p className="text-xs text-slate-500 py-6 text-center">No institutional decisions logged in admin portal.</p>
                 ) : (
                   decisions.map((item, idx) => (
-                    <div key={idx} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
+                    <div key={item._id || idx} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
                       <div className="flex justify-between items-center text-xs">
                         <span className="text-blue-400 font-semibold">{item.category || 'Policy Decision'}</span>
                         <span className="text-slate-400">Status: {item.status || 'Active'}</span>
@@ -164,7 +164,7 @@ export default function AdminPortalPage() {
                   <p className="text-xs text-slate-500 py-6 text-center">No budget tracking records found.</p>
                 ) : (
                   budgets.map((item, idx) => (
-                    <div key={idx} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
+                    <div key={item._id || idx} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
                       <div className="flex justify-between items-center text-xs">
                         <span className="text-amber-400 font-semibold">{item.sector} • {item.fiscalYear}</span>
                         <span className="text-emerald-400 font-semibold">₦{item.amountBudgeted?.toLocaleString()}</span>
