@@ -32,11 +32,8 @@ export default function Navbar() {
       {/* Nav Links & Auth Actions Shifted to the Right */}
       <div className="flex items-center gap-6">
         <div className="hidden md:flex items-center gap-5 text-xs font-medium text-slate-300">
-          <Link href="/report" className="hover:text-amber-400 transition">Report Issue</Link>
-          <Link href="/decisions" className="hover:text-amber-400 transition">Decisions</Link>
-          <Link href="/budgets" className="hover:text-amber-400 transition">Budgets</Link>
-          <Link href="/policies" className="hover:text-amber-400 transition">AI Policy</Link>
-          <Link href="/services" className="hover:text-amber-400 transition">Services</Link>
+          <Link href="/" className="hover:text-amber-400 transition">Home</Link>
+          <Link href="/about" className="hover:text-amber-400 transition">About Us</Link>
           <Link 
             href={userEmail ? "/admin" : "/auth"} 
             className="hover:text-amber-400 transition text-amber-400 font-semibold"

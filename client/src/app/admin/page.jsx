@@ -7,27 +7,31 @@ export default function AdminPortalPage() {
   const [services, setServices] = useState([]);
   const [decisions, setDecisions] = useState([]);
   const [budgets, setBudgets] = useState([]);
+  const [policies, setPolicies] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchAllAdminData() {
       try {
-        const [reportsRes, servicesRes, decisionsRes, budgetsRes] = await Promise.all([
+        const [reportsRes, servicesRes, decisionsRes, budgetsRes, policiesRes] = await Promise.all([
           fetch('http://localhost:5000/api/reports').catch(() => ({ ok: false })),
           fetch('http://localhost:5000/api/services').catch(() => ({ ok: false })),
           fetch('http://localhost:5000/api/decisions').catch(() => ({ ok: false })),
-          fetch('http://localhost:5000/api/budgets').catch(() => ({ ok: false }))
+          fetch('http://localhost:5000/api/budgets').catch(() => ({ ok: false })),
+          fetch('http://localhost:5000/api/policies').catch(() => ({ ok: false }))
         ]);
 
         const reportsData = reportsRes.ok ? await reportsRes.json() : [];
         const servicesData = servicesRes.ok ? await servicesRes.json() : [];
         const decisionsData = decisionsRes.ok ? await decisionsRes.json() : [];
         const budgetsData = budgetsRes.ok ? await budgetsRes.json() : [];
+        const policiesData = policiesRes.ok ? await policiesRes.json() : [];
 
         setReports(Array.isArray(reportsData) ? reportsData : []);
         setServices(Array.isArray(servicesData) ? servicesData : []);
         setDecisions(Array.isArray(decisionsData) ? decisionsData : []);
         setBudgets(Array.isArray(budgetsData) ? budgetsData : []);
+        setPolicies(Array.isArray(policiesData) ? policiesData : []);
       } catch (err) {
         console.error("Error loading admin oversight data:", err);
       } finally {
@@ -49,7 +53,7 @@ export default function AdminPortalPage() {
               System Administration
             </span>
             <h1 className="text-3xl font-extrabold tracking-tight mt-2">Admin Portal & Oversight Records</h1>
-            <p className="text-slate-400 text-sm mt-1">Review community issue reports, institutional service ratings, policy decisions, and public budget records.</p>
+            <p className="text-slate-400 text-sm mt-1">Review community issue reports, institutional service ratings, policy decisions, AI policy summaries, and public budget records.</p>
           </div>
           <Link 
             href="/"
@@ -149,7 +153,7 @@ export default function AdminPortalPage() {
               </div>
             </div>
 
-            {/* 4. Public Budget Status & Tracker Records */}
+            {/* 4. Public Budget Status & Capital Entries */}
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-xl">
               <div className="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
@@ -171,6 +175,33 @@ export default function AdminPortalPage() {
                       </div>
                       <h3 className="font-bold text-white text-sm">{item.projectTitle}</h3>
                       <p className="text-xs text-slate-400">Contractor: <strong className="text-slate-200">{item.contractor}</strong></p>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+
+            {/* 5. AI Policy & Budget Simplifier Logs */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-xl lg:col-span-2">
+              <div className="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                  <span>🤖</span> AI Policy & Budget Simplifier Logs
+                </h2>
+                <span className="bg-purple-500/10 text-purple-400 text-xs font-semibold px-3 py-1 rounded-full border border-purple-500/20">
+                  {policies.length} Total
+                </span>
+              </div>
+              <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
+                {policies.length === 0 ? (
+                  <p className="text-xs text-slate-500 py-6 text-center">No AI policy simplification requests recorded yet.</p>
+                ) : (
+                  policies.map((item, idx) => (
+                    <div key={item._id || idx} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="text-purple-400 font-semibold">Source: {item.sourceType || 'Document Upload'}</span>
+                        <span className="text-slate-500">{item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'Recent'}</span>
+                      </div>
+                      <p className="text-xs text-slate-300 font-medium">Summary: {item.summary || item.policyText}</p>
                     </div>
                   ))
                 )}

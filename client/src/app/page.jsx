@@ -7,8 +7,7 @@ export default function Home() {
     reportsCount: 0,
     decisionsCount: 0,
     budgetsCount: 0,
-    serviceRatingsCount: 0,
-    adminPortalsCount: 0
+    serviceRatingsCount: 0
   });
   const [loadingMetrics, setLoadingMetrics] = useState(true);
 
@@ -32,8 +31,7 @@ export default function Home() {
           reportsCount: Array.isArray(reportsData) ? reportsData.length : 12,
           decisionsCount: Array.isArray(decisionsData) ? decisionsData.length : 8,
           budgetsCount: Array.isArray(budgetsData) ? budgetsData.length : 15,
-          serviceRatingsCount: Array.isArray(servicesData) ? servicesData.length : 42,
-          adminPortalsCount: Array.isArray(budgetsData) ? budgetsData.length : 5
+          serviceRatingsCount: Array.isArray(servicesData) ? servicesData.length : 42
         });
       } catch (err) {
         console.error("Error fetching system metrics:", err);
@@ -47,11 +45,11 @@ export default function Home() {
 
   const navLinks = [
     { name: "Home Dashboard", href: "/", icon: "🏠" },
-    { name: "Services & Scrutiny", href: "/services", icon: "🏛️" },
-    { name: "Report Issues", href: "/report", icon: "📍" },
     { name: "AI Policy Simplifier", href: "/policies", icon: "🤖" },
+    { name: "Institutional Decisions", href: "/decisions", icon: "⚖️" },
+    { name: "Services & Scrutiny", href: "/services", icon: "🏛️" },
     { name: "Track Public Spending", href: "/budgets", icon: "📊" },
-    { name: "Institutional Decisions", href: "/decisions", icon: "⚖️" }
+    { name: "Report Issues", href: "/report", icon: "📍" }
   ];
 
   return (
@@ -93,7 +91,7 @@ export default function Home() {
           
           {/* Header */}
           <div className="space-y-3">
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">Citizen Accountability & Governance Dashboard</h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">Accountability & Transparency in Governance</h1>
             <p className="text-slate-400 text-sm max-w-2xl">
               Empowering citizens with transparent access to public budgets, institutional decisions, community infrastructure reporting, and civic services. Use the side navigation menu to explore each module.
             </p>
@@ -119,26 +117,15 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Additional Admin Portal Activity Box */}
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
-                Admin Portal Activity
-              </span>
-              <h2 className="text-lg font-bold text-white mt-2">Decisions Added to Admin Portal</h2>
-              <p className="text-xs text-slate-400 mt-0.5">Tracked records and administrative policy entries uploaded through portal controls.</p>
-            </div>
-            <div className="bg-slate-950 px-6 py-4 rounded-xl border border-slate-800 text-center">
-              <p className="text-xs text-slate-400">Total Entries</p>
-              <p className="text-xl font-extrabold text-amber-400 mt-0.5">{loadingMetrics ? '...' : metrics.adminPortalsCount}</p>
-            </div>
-          </div>
-
         </div>
 
         {/* Footer */}
-        <footer className="text-center text-xs text-slate-500 pt-12 border-t border-slate-900 mt-12">
-          GovTracker AI &bull; Promoting Transparency, Public Spending Accountability and Citizen Engagement
+        <footer className="text-center pt-16 border-t border-slate-900 mt-16">
+          <div className="inline-block px-6 py-3 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-slate-800 shadow-2xl shadow-emerald-950/20">
+            <p className="text-sm md:text-base font-extrabold tracking-wide bg-gradient-to-r from-emerald-400 via-amber-400 to-teal-400 bg-clip-text text-transparent">
+              GovTracker AI &bull; Promoting Transparency, Public Spending Accountability and Citizen Engagement
+            </p>
+          </div>
         </footer>
       </main>
     </div>
